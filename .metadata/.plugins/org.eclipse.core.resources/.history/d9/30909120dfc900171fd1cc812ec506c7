@@ -1,0 +1,27 @@
+-- Participate
+
+SET SEARCH_PATH TO parlgov;
+drop table if exists q3 cascade;
+
+-- You must not change this table definition.
+
+create table q3(
+        countryName varchar(50),
+        year int,
+        participationRatio real
+);
+
+-- You may find it convenient to do this for each of the views
+-- that define your intermediate steps.  (But give them better names!)
+DROP VIEW IF EXISTS ratio_election CASCADE;
+
+-- Define views for your intermediate steps here.
+
+create temp view ratio_eletion as 
+	select id, country_id, e_date, votes_cast//electorate as p_ratio
+	from election;
+
+
+-- the answer to the query 
+insert into q3 
+

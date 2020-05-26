@@ -1,0 +1,35 @@
+-- Committed
+
+SET SEARCH_PATH TO parlgov;
+drop table if exists q5 cascade;
+
+-- You must not change this table definition.
+
+CREATE TABLE q5(
+        countryName VARCHAR(50),
+        partyName VARCHAR(100),
+        partyFamily VARCHAR(50),
+        stateMarket REAL
+);
+
+-- You may find it convenient to do this for each of the views
+-- that define your intermediate steps.  (But give them better names!)
+DROP VIEW IF EXISTS cabinet20 CASCADE;
+
+-- Define views for your intermediate steps here.
+
+create temp view cabinet20 as
+	select id, country_id
+	from cabinet
+	where extract(year from start_date) >= 1997;
+
+	
+drop view if exists number_cabinet cascade;
+create temp view number_cabinet as
+	select party_id, count(cabinet.id)
+	from cabinet20, cabinet_party
+	where cabinet20.id = cabinet_party.cabinet_id and 
+	group by party_id
+
+-- the answer to the query 
+insert into q5 

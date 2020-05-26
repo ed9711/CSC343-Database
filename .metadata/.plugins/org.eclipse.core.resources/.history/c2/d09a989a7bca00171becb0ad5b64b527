@@ -1,0 +1,8 @@
+create view elecs as
+	select id
+	from election, country
+	where country_id = country.id and country.name = "?"
+	order by e_date desc;
+	
+create view 
+	

@@ -1,0 +1,9 @@
+create view elecs as
+	select id
+	from election e1, country, election e2
+	where e1.country_id = country.id and country.name = "?" 
+		and (e2.previous_parliament_election_id = e1.id or e2.previous_ep_election_id = e1.id)
+	order by e1.e_date desc;
+	
+create view 
+	

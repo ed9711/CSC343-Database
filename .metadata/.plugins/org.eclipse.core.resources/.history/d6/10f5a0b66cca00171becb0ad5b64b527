@@ -1,0 +1,29 @@
+-- Alliances
+
+SET SEARCH_PATH TO parlgov;
+drop table if exists q7 cascade;
+
+-- You must not change this table definition.
+
+DROP TABLE IF EXISTS q7 CASCADE;
+CREATE TABLE q7(
+        countryId INT, 
+        alliedPartyId1 INT, 
+        alliedPartyId2 INT
+);
+
+-- You may find it convenient to do this for each of the views
+-- that define your intermediate steps.  (But give them better names!)
+DROP VIEW IF EXISTS allied CASCADE;
+
+-- Define views for your intermediate steps here.
+create temp view allied as
+	select e1.party_id as ally1, e2.party_id as ally2, party.country_id as country_id
+	from election_result e1, election_result e2, party
+	where e1.id = e2.alliance_id and e1.election_id = e2.election_id and e1.id = party.id;
+	
+drop view if exists cascade;
+
+
+-- the answer to the query 
+insert into q7 

@@ -1,0 +1,61 @@
+csc343h-nizhison=> select* from country;
+ code | name | continent | population
+------+------+-----------+------------
+(0 rows)
+
+csc343h-nizhison=> select* from countrylanguage
+csc343h-nizhison-> ;
+ countrycode | countrylanguage | isofficial | percentage
+-------------+-----------------+------------+------------
+(0 rows)
+
+csc343h-nizhison=> INSERT INTO country VALUES
+csc343h-nizhison-> ('Borduria', 'BOR','Pangaea', 1000), ('Cagliostro', 'CAG', 'Pangaea', 250), ('Qumar', 'MAR', 'Pangaea', 3380);
+ERROR:  value too long for type character(3)
+csc343h-nizhison=> INSERT INTO country VALUES
+('BOR', 'Borduria','Pangaea', 1000), ('CAG', 'Cagliostro', 'Pangaea', 250), ('MAR',
+'Qumar', 'Pangaea', 3380);
+INSERT 0 3
+csc343h-nizhison=> select* from country;
+ code |    name    | continent | population
+------+------------+-----------+------------
+ BOR  | Borduria   | Pangaea   |       1000
+ CAG  | Cagliostro | Pangaea   |        250
+ MAR  | Qumar      | Pangaea   |       3380
+(3 rows)
+
+csc343h-nizhison=> INSERT INTO countrylanguage VALUES
+csc343h-nizhison-> ('BOR', 'English', NULL, NULL),('BOR', 'Italian', NULL, NULL), ('
+BOR', 'Klingon', NULL, NULL);
+INSERT 0 3
+csc343h-nizhison=> select* from countrylanguage
+;
+ countrycode | countrylanguage | isofficial | percentage
+-------------+-----------------+------------+------------
+ BOR         | English         |            |
+ BOR         | Italian         |            |
+ BOR         | Klingon         |            |
+(3 rows)
+
+csc343h-nizhison=> DELETE FROM country
+csc343h-nizhison-> WHERE population < 300;
+DELETE 1
+csc343h-nizhison=> select* from country;
+ code |   name   | continent | population
+------+----------+-----------+------------
+ BOR  | Borduria | Pangaea   |       1000
+ MAR  | Qumar    | Pangaea   |       3380
+(2 rows)
+
+csc343h-nizhison=> UPDATE country
+csc343h-nizhison-> SET continent = 'Luna'
+csc343h-nizhison-> WHERE code = 'BOR';
+UPDATE 1
+csc343h-nizhison=> select* from country;
+ code |   name   | continent | population
+------+----------+-----------+------------
+ MAR  | Qumar    | Pangaea   |       3380
+ BOR  | Borduria | Luna      |       1000
+(2 rows)
+
+csc343h-nizhison=>
